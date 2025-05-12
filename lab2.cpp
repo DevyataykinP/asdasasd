@@ -110,11 +110,9 @@ void iterate() {
 	cout << "Bmax = " << Bmax << endl;
     double N = ceil(log((Epsilon * (1 - Cmax)) / Bmax) / log(Cmax));
 
-    cout << "Calculated number of steps: " << N << endl;
-
-    cout << "-----------------------" << endl;
-    cout << "Simple Iteration Method Results:" << endl;
-    cout << "-----------------------" << endl;
+    cout << "Количество шагов: " << N << endl;
+   
+    cout << "Результат:" << endl;
 
     for (int i = 0; i < matrix_size; i++) {
         x[i] = 0;
@@ -137,29 +135,29 @@ void iterate() {
             x[i] = newX[i];
         }
 
-        cout << "Step " << j + 1 << ":" << endl;
+        cout << "Шаг " << j + 1 << ":" << endl;
         printVector(x, matrix_size);
     }
 }
 
 int main() {
-    cout << "Initial matrix:" << endl;
+    cout << "Начальная матрица:" << endl;
     printMatrix(matrix);
 
     divideMatrix();
 
-    cout << "matrix after delenie:" << endl;
+    cout << "Матрица после деления:" << endl;
     printMatrix(matrix);
 
     getMatrixAB();
 
-    cout << "Matrix A:" << endl;
+    cout << "Матрица A:" << endl;
     printMatrix(A);
 
-    cout << "Matrix B:" << endl;
+    cout << "Матрица B:" << endl;
     printVector(B, matrix_size);
 
-    cout << "Matrix E:" << endl;
+    cout << "Матрица E:" << endl;
     matrixE();
     printMatrix(E);
 
@@ -169,12 +167,12 @@ int main() {
         }
     }
 
-    cout << "Matrix C (A - E):" << endl;
+    cout << "Матрица C (A - E):" << endl;
     printMatrix(C);
 
     iterate();
 
-    cout << "Final values of x after iterations:" << endl;
+    cout << "Результат:" << endl;
     printVector(x, matrix_size);
 
     return 0;
