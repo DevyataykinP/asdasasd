@@ -1,42 +1,49 @@
-#include <iostream>
 #include <cmath>
-#include <iomanip>
-  
+#include <iostream>
+
 using namespace std;
 
-double func(double x) {
-    return 1-x*log(x)+0.3*sqrt(x);
+double func(double x) { 
+    return 1-x*log(x)+0.3*sqrt(x); 
 }
 
-double diff_func(double x) {
-    return -1*log(x) +3 /(20*sqrt(x)) - 1;
+double diff_func(double x, double h) {
+    return (func(x+h)-func(x))/h;
 }
 
-double epsilon = 1e-6;
-int step = 50;
+double newtonMethod(double a, double b, double epsilon) {
+    double x0=(a+b)/2;
+    double h=0.0001;
 
-double Newton(double x0) {
-    double x = x0;
-    cout << "Метод Ньютона:" << endl;
-    cout << "x0 = " << fixed << setprecision(3) << x << "  f(x0) = " << func(x) << "  diff(x0) =" << diff_func(x) << endl;
-
-    for (int i = 0; i < step; i++) {
-        double x_next = x - func(x) / diff_func(x);
-        cout << "x" << i + 1 << " = " << fixed << setprecision(3) << x_next << "  f(x" << i + 1 << ") = " << func(x_next) << "  diff(x" << i + 1 << ") = " << diff_func(x_next) << endl;
-  
-        if (abs(x_next - x) < epsilon) {
-            return x_next;
-        }
-
-        x = x_next;
+    while (fabs(func(x0)) > epsilon) {
+        x0=x0-func(x0)/diff_func(x0, h);
     }
-    return x;
+
+    return x0;
+}
+
+void localizeRoots(double a, double b, double epsilon) {
+    double step=0.1;
+
+    for (double x=a; x<b; x+=step) {
+        if (func(x)*func(x+step)<=0) {
+            double root=newtonMethod(x, x+step, epsilon);
+            cout<<root<<endl;
+        }
+    }
 }
 
 int main() {
-    double x0 = 2.1;
-    double result3 = Newton(x0);
-    cout << "Результат: " << result3 << endl;
+    double a, b, epsilon;
+
+    cout << "Границы a, b: ";
+    cin >> a >> b;
+
+    cout<<"Введите epsilon: ";
+    cin>>epsilon;
+
+    cout<<"Локализация корней: "<<endl;
+    localizeRoots(a, b, epsilon);
 
     return 0;
 }
