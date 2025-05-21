@@ -22,17 +22,6 @@ double newtonMethod(double a, double b, double epsilon) {
     return x0;
 }
 
-void localizeRoots(double a, double b, double epsilon) {
-    double step=0.1;
-
-    for (double x=a; x<b; x+=step) {
-        if (func(x)*func(x+step)<=0) {
-            double root=newtonMethod(x, x+step, epsilon);
-            cout<<root<<endl;
-        }
-    }
-}
-
 int main() {
     double a, b, epsilon;
 
@@ -42,8 +31,7 @@ int main() {
     cout<<"Введите epsilon: ";
     cin>>epsilon;
 
-    cout<<"Локализация корней: "<<endl;
-    localizeRoots(a, b, epsilon);
+    cout<<newtonMethod(a, b, epsilon)<<endl;
 
     return 0;
 }
